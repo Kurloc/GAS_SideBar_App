@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="header-body">
+<div>
+    <div class="navbar">
+        <div class="button-body">
+            <input class="dropdown-button" value="Notify CA's" type="button" onclick="
+            google.script.run.withSuccessHandler(setCADropDown).getCAEmails();
+            hideAllApps();
+            showApp('notify-ca-app');
+            ">
+        </div>
+        <div class="button-body">
+            <input class="dropdown-button" value="My Referrals" type="button" onclick="
+            hideAllApps();
+            google.script.run.withSuccessHandler(onSuccessTableLoad).GenerateMyReferralTable();
+            showApp('my-referrals-app');">
+        </div>
+        <div class="button-body">
+            <input class="dropdown-button" value="CA Dashes" type="button" onclick="
+            hideAllApps();
+            showApp('ca-dashboard-app');">
+        </div>
+        <div class="button-body">
+            <a hidden href="https://icons8.com/icon/84040/settings" style="text-align: right;">Settings icon by Icons8</a>
+            <img onclick="
+                        google.script.run.withSuccessHandler(GenerateCAsToList).GetCAList();
+                        hideAllApps();
+                        showApp('settings-app');"
+                 class="settings-button" src="https://img.icons8.com/material-sharp/18/000000/settings.png"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

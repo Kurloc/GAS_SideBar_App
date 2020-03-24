@@ -1,0 +1,62 @@
+<style>
+    .my-referrals-app{
+        width: auto;
+        overflow-x: hidden
+    }
+    .my-referrals-table{
+        padding: 10px;
+    }
+    .my-referrals-header{
+        -webkit-text-stroke: 1px black;
+        color: aliceblue;
+    }
+
+
+
+
+     .my-referrals-clear-button{
+         width: 100%;
+     }
+
+    table, thead, tbody, th, td, tr {
+        background-color: #99B5E1;
+        display: block;
+        padding-right: 4px !important;
+        border-radius: 4px;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid black }
+
+    td {border-bottom: 1px solid black;
+        position: relative;
+        padding-left: 50%;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    td:before {
+        border-right: 1px solid black;
+        position: absolute;
+        left: 1px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+
+    td:nth-of-type(1):before { content: "Patient Name: "; }
+    td:nth-of-type(2):before { content: "SOC Clinician"; }
+    td:nth-of-type(3):before { content: "CA"; }
+    td:nth-of-type(4):before { content: "Intake"; }
+    td:nth-of-type(5):before { content: "Review By Date"; }
+    td:nth-of-type(6):before { content: "Delay?"; }
+    td:nth-of-type(7):before { content: "Site"; }
+</style>

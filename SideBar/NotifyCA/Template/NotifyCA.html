@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notify CA</title>
+</head>
+<body>
+    <div class="div">
+      <h1 class="notify-CA-header">Send Alert</h1>
+        <div class="card">
+            <div class="input-div">
+                <label class="side-bar-label">Patient Name</label><br><hr>
+                <input class="side-bar-input" type="text" value="" id="patient-name" disabled><br>
+                <input class="side-bar-button" type="button" value="Update W/ Active Cell"
+                       onclick="IsLoading('patient-name');
+                       google.script.run.withSuccessHandler(onSuccessPatientName).getActiveCell2();">
+                    <div id="mrn" hidden>
+                        <br>
+                        <label>MRN</label><br>
+                        <input class="side-bar-input" type="text"><br>
+                    </div>
+                <div>
+                    <label>Show MRN</label>
+                    <input type="checkbox" id="enable-mrn" value="false" onclick="checkboxMRN();">
+                </div>
+                </div>
+        </div>
+    </div>
+    <div class="div">
+        <div class="card">
+            <div class="input-div">
+                <label class="side-bar-label">SOC Clinician</label><br><hr>
+                <input class="side-bar-input" type="text" value="" id="soc-clinician" disabled><br>
+                <input class="side-bar-button" type="button" value="Update W/ Active Cell"
+                       onclick="IsLoading('soc-clinician');
+                       google.script.run.withSuccessHandler(onSuccessSOC).getActiveCell2();"
+                ><br>
+                <label >Free Write SOC Clinician</label>
+                <input type="checkbox" id="enable-soc" value="false" onclick="checkboxSOC();">
+            </div>
+        </div>
+    </div>
+    <div class="div">
+        <div class="card">
+            <div class="input-div">
+                <label class="side-bar-label">Referral Info</label><br><hr>
+                <label class="side-bar-label">Review Referral By:</label><br>
+                <input class="side-bar-input" type="date" id="review-by-date"><br>
+                <label>Delay Required</label>
+                <input type="checkbox" id="delay-check-box" value="false" onclick="">
+            </div>
+        </div>
+    </div>
+    <div class="div">
+        <div class="card">
+            <div class="input-div">
+                <label class="side-bar-label">CA's Email</label><br><hr>
+                <select class="side-bar-input" type="text" value="" id="email-address">
+                </select>
+            </div>
+        </div>
+    </div>
+    <br>
+    <input id="send-email-alert" class="submit-button" type="button" value="Send Email Alert"
+           onclick="sendAlert();">
+    <br>
+</body>
+<br>
+<div class="alertFail" id="alertFail" hidden>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Error!</strong>
+</div>
+<div class="alertServerError" id="alertServerError" hidden>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Server Error!</strong>
+</div>
+<div class="alertSuccess" id="alertSuccess" hidden>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Success!</strong> Email Sent!.
+</div>
+<div id="table-space">
+
+</div>
+</html>
+

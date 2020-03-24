@@ -1,0 +1,108 @@
+<script>
+    function IsLoading(element) {
+        console.log('derp');
+        document.getElementById(element).value = 'Loading...'
+    }
+    function checkboxSOC() {
+        console.log('picked up ', document.getElementById('enable-soc').checked);
+        if (document.getElementById('enable-soc').checked === true){
+            console.log(document.getElementById('enable-soc').value);
+            document.getElementById('soc-clinician').disabled = false;
+        }
+        if (document.getElementById('enable-soc').checked === false) {
+            console.log(document.getElementById('enable-soc').value);
+            document.getElementById('soc-clinician').disabled = true;
+        }
+    }
+    function checkboxMRN() {
+        console.log('picked up ', document.getElementById('enable-mrn').checked);
+        if (document.getElementById('enable-mrn').checked === true){
+            console.log(document.getElementById('enable-mrn').value);
+            document.getElementById('mrn').hidden = false;
+        }
+        if (document.getElementById('enable-mrn').checked === false) {
+            console.log(document.getElementById('enable-mrn').value);
+            document.getElementById('mrn').hidden = true;
+        }
+    }
+    function onSuccessPatientName(numUnread) {
+        document.getElementById('patient-name').value = numUnread;
+    }
+    function onSuccessSOC(numUnread) {
+        document.getElementById('soc-clinician').value = numUnread;
+    }
+    async function onSuccessEmail(numUnread) {
+        if (numUnread === 0) {
+            document.getElementById('alertFail').hidden = false;
+            document.getElementById('alertFail').scrollIntoView();
+            await sleep(2000);
+            document.getElementById('alertFail').hidden = true;
+        }
+        if (numUnread === 1) {
+            document.getElementById('alertSuccess').hidden = false;
+            document.getElementById('alertSuccess').scrollIntoView();
+            await sleep(2000);
+            document.getElementById('alertSuccess').hidden = true;
+        }
+    }
+    function getPatientName() {
+        return document.getElementById('patient-name').value;
+    }
+    function getMRN() {
+        return document.getElementById('mrn').value;
+    }
+    function getSOC() {
+        return document.getElementById('soc-clinician').value;
+    }
+    function getEmailAddress() {
+        return document.getElementById('email-address').value;
+    }
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    };
+    async function sendAlert() {
+        let patientName = document.getElementById('patient-name').value;
+        let mrn = document.getElementById('mrn').value;
+        let socClinician = document.getElementById('soc-clinician').value;
+        let clinicalSupervisorEmail = document.getElementById('email-address').value;
+        let delayBoolean = document.getElementById('delay-check-box').checked;
+        let reviewByDate = document.getElementById('review-by-date').value;
+        try {
+            await google.script.run.AddToDashBoard(
+                patientName, mrn, socClinician, clinicalSupervisorEmail, reviewByDate, delayBoolean, 'site');
+            await google.script.run.withSuccessHandler(onSuccessEmail).alertCA(getPatientName(), getSOC(), getEmailAddress(), reviewByDate, 'site');
+        }
+        catch (e) {
+            document.getElementById('alertServerError').hidden = false;
+            await sleep(2000);
+            document.getElementById('alertServerError').hidden = true;
+        }
+    }
+    function setCADropDown(arrayInc) {
+        arrayInc = JSON.parse(arrayInc);
+        console.log(arrayInc);
+        var x = document.getElementById("email-address");
+        //Clear old Dropdown options!
+        var i, L = x.options.length - 1;
+        for(i = L; i >= 0; i--) {
+            x.remove(i);
+        }
+        //
+        for (var i=0; i < arrayInc.length; i++ ){
+            console.log(arrayInc);
+            var option = document.createElement("option");
+            option.text = arrayInc[i];
+            x.add(option);
+        }
+    }
+    window.onload = function foo() {
+        google.script.run.withSuccessHandler(onSuccessTableLoad).GenerateMyReferralTable();
+        google.script.run.withSuccessHandler(GenerateCAsToList).GetCAList();
+        google.script.run.withSuccessHandler(setCADropDown).getCAEmails();
+
+        var today = new Date();
+        var month = Number(today.getMonth()) + 1;
+        if (month < 10){ month = '0' + month; }
+        document.getElementById('review-by-date').value = today.getFullYear() + '-' + month + '-' + today.getDate();
+    };
+</script>

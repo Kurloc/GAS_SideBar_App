@@ -1,0 +1,41 @@
+<script>
+    function showApp(elementID) {
+        if (elementID === 'my-referrals-app'){
+            document.getElementById(elementID).style.display = 'table';
+        }
+        document.getElementById(elementID).hidden = false;
+        console.log('showing ', elementID);
+    }
+    function hideAllApps(){
+        document.getElementById("notify-ca-app").hidden = true;
+        document.getElementById("my-referrals-app").hidden = true;
+        document.getElementById("my-referrals-app").style.display = 'none';
+        document.getElementById("ca-dashboard-app").hidden = true;
+        document.getElementById("settings-app").hidden = true;
+    }
+    function derp(ele) {
+        console.log(ele);
+        var x = document.createDocumentFragment();
+        x.append(ele);
+        var pn = (x.getElementById('my-referrals-patientName').innerText);
+        var soc = (x.getElementById('my-referrals-socClinician').innerText);
+        var ca = (x.getElementById('my-referrals-caEmail').innerText);
+        var intake = (x.getElementById('my-referrals-intakeEmail').innerText);
+        var reviewByDate = (x.getElementById('my-referrals-reviewBy').innerText);
+        var delayBoolean = (x.getElementById('my-referrals-delayBoolean').innerText);
+        google.script.run.deleteMyReferralRow(pn, soc, ca, intake, reviewByDate, delayBoolean);
+    }
+    function derp2(ele) {
+        var x = document.createDocumentFragment();
+        x.append(ele);
+        var pn = (x.getElementById('my-referrals-patientName').innerText);
+        var soc = (x.getElementById('my-referrals-socClinician').innerText);
+        var ca = (x.getElementById('my-referrals-caEmail').innerText);
+        var intake = (x.getElementById('my-referrals-intakeEmail').innerText);
+        var reviewByDate = (x.getElementById('my-referrals-reviewBy').innerText);
+        var delayBoolean = (x.getElementById('my-referrals-delayBoolean').innerText);
+        google.script.run.deleteMyReferralRow(pn, soc, ca, intake, reviewByDate, delayBoolean);
+        google.script.run.sendIntakeNotification(intake, ca, pn);
+    }
+
+</script>

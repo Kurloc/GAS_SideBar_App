@@ -1,0 +1,31 @@
+<script>
+    function removeCAFromList(el) {
+        console.log(el);
+        console.log(el.parentNode);
+        console.log(el.parentNode.textContent);
+        console.log(el.parentNode.innerHTML);
+        if(!confirm("Are you sure you want to delete?")) return;
+        var list = document.getElementById("ul-clinical-supervisor-settings-app");
+        el.parentNode.parentNode.removeChild(el.parentNode);
+        google.script.run.removeCAEmail(el.parentNode.innerHTML);
+    }
+    function GenerateCAsToList(htmlToAdd) {
+        console.log(htmlToAdd);
+        document.getElementById('ul-clinical-supervisor-settings-app').innerHTML = htmlToAdd;
+    }
+    function addCAToList() {
+        var adminEmail = document.getElementById('input-clinical-supervisor-settings-app').value;
+        google.script.run.addCAEmail(adminEmail);
+        var html = '<li>' +
+            adminEmail +
+            '    <span class="closeulb" onclick="removeCAFromList(this);">' +
+            '        <img src="https://img.icons8.com/material-sharp/12/000000/filled-trash.png"/>' +
+            '        </span>' +
+            '        </li>';
+        var innerHTML = document.getElementById('ul-clinical-supervisor-settings-app').innerHTML;
+        innerHTML += html;
+        console.log(innerHTML);
+        document.getElementById('ul-clinical-supervisor-settings-app').innerHTML = innerHTML;
+        document.getElementById('input-clinical-supervisor-settings-app').value = '';
+    }
+</script>

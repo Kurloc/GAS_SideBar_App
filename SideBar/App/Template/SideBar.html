@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="side-bar-body">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body class="nav-bar-body">
+    <?!= include('Header/CSS/Header.css'); ?>
+    <?!= include('Header/JavaScript/Header.js'); ?>
+    <?!= include('Header/Template/Header.html'); ?>
+
+    <div class="IncludedApps">
+        <div class="notify-ca-app" id="notify-ca-app">
+            <?!= include('SideBar/NotifyCA/CSS/NotifyCA.css'); ?>
+            <?!= include('SideBar/NotifyCA/JavaScript/NotifyCA.js'); ?>
+            <?!= include('SideBar/NotifyCA/Template/NotifyCA.html'); ?>
+        </div>
+
+        <div class="my-referrals-app" id="my-referrals-app" hidden>
+            <?!= include('SideBar/myReferrals/CSS/myReferrals.css.html'); ?>
+            <?!= include('SideBar/myReferrals/JavaScript/myReferrals.js.html'); ?>
+            <?!= include('SideBar/myReferrals/Templates/myReferrals.html'); ?>
+        </div>
+
+        <div class="ca-dashboard-app" id="ca-dashboard-app" hidden>
+            <?!= include('SideBar/CADashBoard/CSS/CADashBoard.css.html'); ?>
+            <?!= include('SideBar/CADashBoard/JavaScript/CADashBoard.js.html'); ?>
+            <?!= include('SideBar/CADashBoard/Templates/CADashBoard.html'); ?>
+        </div>
+
+        <div class="settings-app" id="settings-app" hidden>
+            <?!= include('SideBar/Settings/CSS/Settings.css.html'); ?>
+            <?!= include('SideBar/Settings/JavaScript/Settings.js.html'); ?>
+            <?!= include('SideBar/Settings/Templates/Settings.html'); ?>
+        </div>
+
+        <div class="DoNotMessWith">
+            <div class="main-app">
+                <?!= include('SideBar/App/CSS/SideBar.css'); ?>
+                <?!= include('SideBar/App/JavaScript/SideBar.js'); ?>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
