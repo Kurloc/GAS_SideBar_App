@@ -16,10 +16,10 @@ function showSidebar() {
 function include(File) {
     return HtmlService.createHtmlOutputFromFile(File).getContent();
 };
-function alertCA(patientName, socClinician, supervisorsEmail, reviewByDate){
+function alertCA(patientName, socClinician, supervisorsEmail, reviewByDate, emailMessage){
     if (patientName !== "" && socClinician !== "" && supervisorsEmail !== ""){
         console.log(patientName, socClinician, supervisorsEmail);
-        MailApp.sendEmail(supervisorsEmail.toLowerCase().trim(), 'Please Review Referral For ' + patientName + ' by ' + reviewByDate, '')
+        MailApp.sendEmail(supervisorsEmail.toLowerCase().trim(), 'Please Review Referral For ' + patientName + ' by ' + reviewByDate, emailMessage);
         return 1
     } else { return 0}
 }
@@ -48,5 +48,11 @@ function deleteMyReferralRow(patientName, socClinician, caEmail, intakeEmail, re
     }
 }
 function sendIntakeNotification(intake, ca, pn) {
-    MailApp.sendEmail(intake.toLowerCase().trim(), ca + ' has finished the referral for ' + pn, '');
+    MailApp.sendEmail(intake.toLowerCase().trim(), ca + ' Has Finished Reviewing your referral for ' + pn, '');
+}
+function dateObjToEventDescription(dateObj) {
+    var month = Number(dateObj.getMonth()) + 1;
+    var year = dateObj.getFullYear();
+    var date = dateObj.getDate();
+    return month + '-' + date + '-' + year;
 }

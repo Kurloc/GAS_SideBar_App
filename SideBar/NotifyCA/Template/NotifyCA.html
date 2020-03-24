@@ -21,7 +21,7 @@
                     </div>
                 <div>
                     <label>Show MRN</label>
-                    <input type="checkbox" id="enable-mrn" value="false" onclick="checkboxMRN();">
+                    <input type="checkbox" class="delay-check-box" id="enable-mrn" value="false" onclick="checkboxMRN();">
                 </div>
                 </div>
         </div>
@@ -36,7 +36,7 @@
                        google.script.run.withSuccessHandler(onSuccessSOC).getActiveCell2();"
                 ><br>
                 <label >Free Write SOC Clinician</label>
-                <input type="checkbox" id="enable-soc" value="false" onclick="checkboxSOC();">
+                <input type="checkbox" class="delay-check-box" id="enable-soc" value="false" onclick="checkboxSOC();">
             </div>
         </div>
     </div>
@@ -47,7 +47,18 @@
                 <label class="side-bar-label">Review Referral By:</label><br>
                 <input class="side-bar-input" type="date" id="review-by-date"><br>
                 <label>Delay Required</label>
-                <input type="checkbox" id="delay-check-box" value="false" onclick="">
+                <input type="checkbox" class="delay-check-box" id="delay-check-box" value="false" onclick="">
+            </div>
+        </div>
+    </div>
+    <div class="div">
+        <div class="card">
+            <div class="input-div">
+                <label class="email-body">Add Any Notes</label><br>
+                <i class="i-email-tip">These notes will sent within the body of the email!</i><br>
+                <hr>
+                <textarea id="email-message" class="email-message" placeholder="Email message here...">
+                </textarea>
             </div>
         </div>
     </div>
@@ -62,7 +73,12 @@
     </div>
     <br>
     <input id="send-email-alert" class="submit-button" type="button" value="Send Email Alert"
-           onclick="sendAlert();">
+           onclick="sendAlert();
+                    clearCAInputs();
+                    ">
+    <input id="send-email-without-alert" class="submit-button" type="button" value="Add to Dash W/o Alert"
+           onclick="sendAlertWithout();
+                    clearCAInputs();">
     <br>
 </body>
 <br>

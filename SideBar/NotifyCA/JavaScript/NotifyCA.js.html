@@ -67,10 +67,45 @@
         let clinicalSupervisorEmail = document.getElementById('email-address').value;
         let delayBoolean = document.getElementById('delay-check-box').checked;
         let reviewByDate = document.getElementById('review-by-date').value;
+        let emailMessage = document.getElementById('email-message').value;
+        console.log(emailMessage);
         try {
             await google.script.run.AddToDashBoard(
                 patientName, mrn, socClinician, clinicalSupervisorEmail, reviewByDate, delayBoolean, 'site');
-            await google.script.run.withSuccessHandler(onSuccessEmail).alertCA(getPatientName(), getSOC(), getEmailAddress(), reviewByDate, 'site');
+            await google.script.run.withSuccessHandler(onSuccessEmail).alertCA(getPatientName(), getSOC(), getEmailAddress(), reviewByDate, emailMessage);
+        }
+        catch (e) {
+            document.getElementById('alertServerError').hidden = false;
+            await sleep(2000);
+            document.getElementById('alertServerError').hidden = true;
+        }
+    }
+    function clearCAInputs() {
+        var today = new Date();
+        var month = Number(today.getMonth()) + 1;
+        if (month < 10){ month = '0' + month; }
+
+        let patientName = document.getElementById('patient-name').value = '';
+        let mrn = document.getElementById('mrn').value;
+        let socClinician = document.getElementById('soc-clinician').value = '';
+        let clinicalSupervisorEmail = document.getElementById('email-address').value = '';
+        let delayBoolean = document.getElementById('delay-check-box').checked = false;
+        let reviewByDate = document.getElementById('review-by-date').value = today.getFullYear() + '-' + month + '-' + today.getDate();
+        let emailMessage = document.getElementById('email-message').value = '';
+    }
+
+    async function sendAlertWithout() {
+        let patientName = document.getElementById('patient-name').value;
+        let mrn = document.getElementById('mrn').value;
+        let socClinician = document.getElementById('soc-clinician').value;
+        let clinicalSupervisorEmail = document.getElementById('email-address').value;
+        let delayBoolean = document.getElementById('delay-check-box').checked;
+        let reviewByDate = document.getElementById('review-by-date').value;
+        let emailMessage = document.getElementById('email-message').value;
+        console.log(emailMessage);
+        try {
+            await google.script.run.AddToDashBoard(
+                patientName, mrn, socClinician, clinicalSupervisorEmail, reviewByDate, delayBoolean, 'site');
         }
         catch (e) {
             document.getElementById('alertServerError').hidden = false;
